@@ -33,33 +33,12 @@
 
                             @if ($reservation->status === 'received')
                                 <div class="text-right">
-                                    <button type="button" class="btn btn-danger btn-md float-right mt-4 col-xl-3 col-lg-4 col-md-5" data-toggle="modal" data-target="#confirmCancellationModal">
+                                    <button type="button" class="btn btn-danger btn-md float-right mt-4 col-xl-3 col-lg-4 col-md-5" data-toggle="modal" data-target="#confirmCancellationModal-{{ $reservation->code }}">
                                         Cancel reservation
                                     </button>
                                 </div>
 
-                                <div class="modal fade" id="confirmCancellationModal" tabindex="-1" role="dialog" aria-labelledby="confirmCancellationModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h3 class="modal-title" id="confirmCancellationModalLabel">Are you sure?</h3>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <h5>Are you sure you want to cancel the reservation?<br> This process cannot be undone.</h5>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-lg btn-secondary" data-dismiss="modal">No</button>
-                                                <form method="POST" action="{{ route('reservation.cancel', $reservation->slug) }}">
-                                                    @csrf
-                                                    <button class="btn btn-danger btn-lg float-right">Yes</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @include('reservation.include._cancel_reservation_modal', ['id' => $reservation->code ,'action' => route('reservation.cancelBySlug', $reservation->slug)])
                             @endif
                         </div>
                     </div>
