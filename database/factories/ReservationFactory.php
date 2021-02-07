@@ -26,7 +26,7 @@ class ReservationFactory extends Factory
             'user_id' => $this->faker->randomElement(User::all())->id,
             'slug' => $this->faker->regexify('[a-z0-9]{24}'),
             'code' => $this->faker->regexify('[a-z0-9]{5}'),
-            'status' => $this->faker->randomElement(['pending', 'accepted', 'in progress', 'cancelled', 'finished']),
+            'status' => $this->faker->randomElement(['received', 'in progress', 'cancelled', 'finished']),
             'start_at' => $this->faker->dateTimeBetween('now', '+8 hours'),
         ];
     }

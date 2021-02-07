@@ -35,7 +35,7 @@ class ReservationRepository implements ReservationRepositoryInterface
             $reservationsWithDuplicateCode = Reservation::where('code', $code)->get();
             if ($reservationsWithDuplicateCode->count()) {
                 $statuses = $reservationsWithDuplicateCode->pluck('status')->toArray();
-                if (!array_intersect($statuses, ['in progress', 'pending'])) {
+                if (!array_intersect($statuses, ['in progress', 'received'])) {
                     $isCodeAvailable = True;
                 }
             } else {
@@ -59,7 +59,7 @@ class ReservationRepository implements ReservationRepositoryInterface
         $reservation = new Reservation(request()->all());
         $reservation->slug = $slug;
         $reservation->code = $code;
-        $reservation->status = 'pending';
+        $reservation->status = 'received';
         $reservation->start_at = $startAt;
         $reservation->save();
 

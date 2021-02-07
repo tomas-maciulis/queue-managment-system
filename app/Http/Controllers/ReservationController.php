@@ -57,13 +57,26 @@ class ReservationController extends Controller
     /**
      * Show a reservation.
      *
-     * @param StoreReservationRequest $request
-     * @return RedirectResponse
+     * @param Request $request
+     * @return View
      */
     public function show(Request $request): View
     {
         $reservation = $this->reservationRepository->findBySlug($request->slug);
 
         return view('reservation.show')->with(['reservation' => $reservation]);
+    }
+
+    /**
+     * Cancel a reservation.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function cancel(Request $request): RedirectResponse
+    {
+        $this->reservationRepository->cancelVisitByReservee($request->slug);
+
+        return redirect('/');
     }
 }
