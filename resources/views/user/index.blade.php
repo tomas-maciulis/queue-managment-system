@@ -33,7 +33,7 @@
                                         @elseif ($reservation->status === 'received')
                                             <form method="POST" action="{{ route('reservation.start', $reservation->id) }}">
                                                 @csrf
-                                                <button class="btn btn-sm btn-primary mx-1">Begin</button>
+                                                <button class="btn btn-sm btn-success mx-1">Begin</button>
                                             </form>
                                             <button type="button" class="btn btn-danger btn-sm mx-1" data-toggle="modal" data-target="#confirmCancellationModal-{{ $reservation->code }}">
                                                 Cancel
