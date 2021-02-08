@@ -76,18 +76,27 @@ class ReservationRepository implements ReservationRepositoryInterface
 
     /**
      * @param string $reservationSlug
-     * @return Reservation|Model
+     * @return Reservation
      */
-    public function findBySlug(string $reservationSlug)
+    public function findBySlug(string $reservationSlug): Reservation
     {
         return Reservation::where('slug', $reservationSlug)->firstOrFail();
+    }
+
+    /**
+     * @param int $reservationId
+     * @return Reservation
+     */
+    public function find(int $reservationId): Reservation
+    {
+        return Reservation::findOrFail($reservationId);
     }
 
     /**
      * @param string $reservationSlug
      * @return void
      */
-    public function cancelVisitByReservee(string $reservationSlug): void
+    public function cancelVisitBySlug(string $reservationSlug): void
     {
         $reservation = Reservation::where('slug', $reservationSlug)->firstOrFail();
         $reservation->status = 'cancelled';
@@ -98,7 +107,7 @@ class ReservationRepository implements ReservationRepositoryInterface
      * @param int $reservationId
      * @return void
      */
-    public function cancelVisitByUser(int $reservationId): void
+    public function cancelVisitById(int $reservationId): void
     {
         $reservation = Reservation::findOrFail($reservationId);
         $reservation->status = 'cancelled';
@@ -109,20 +118,9 @@ class ReservationRepository implements ReservationRepositoryInterface
      * @param int $reservationId
      * @return void
      */
-    public function acceptVisit(int $reservationId): void
-    {
-        $reservation = Reservation::firstOrFail($reservationId);
-        $reservation->status = 'accepted';
-        $reservation->save();
-    }
-
-    /**
-     * @param int $reservationId
-     * @return void
-     */
     public function beginVisit(int $reservationId): void
     {
-        $reservation = Reservation::firstOrFail($reservationId);
+        $reservation = Reservation::findOrFail($reservationId);
         $reservation->status = 'in progress';
         $reservation->save();
     }
@@ -133,7 +131,7 @@ class ReservationRepository implements ReservationRepositoryInterface
      */
     public function finishVisit(int $reservationId): void
     {
-        $reservation = Reservation::firstOrFail($reservationId);
+        $reservation = Reservation::findOrFail($reservationId);
         $reservation->status = 'finished';
         $reservation->save();
     }

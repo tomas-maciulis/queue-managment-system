@@ -42,7 +42,21 @@ class Reservation extends Model
         if ($currentTime >= $this->start_at) {
             return '0 hours 0 minutes';
         }
-        return Carbon::now()->diff($this->start_at, false)->format('%h hours %i minutes');
+
+        $timeDiff = $currentTime->diff($this->start_at, false);
+        if ($timeDiff->format('%h') == 1) {
+            $format = '%h hour';
+        } else {
+            $format = '%h hours';
+        }
+
+        if ($timeDiff->format('%i') == 1) {
+            $format .= ' %i minute';
+        } else {
+            $format .= ' %i minutes';
+        }
+
+        return $timeDiff->format($format);
     }
 
     /**

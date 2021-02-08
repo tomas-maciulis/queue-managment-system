@@ -24,27 +24,28 @@ interface ReservationRepositoryInterface
 
     /**
      * @param string $reservationSlug
-     * @return Reservation|Model
+     * @return Reservation
      */
-    public function findBySlug(string $reservationSlug);
+    public function findBySlug(string $reservationSlug): Reservation;
+
+    /**
+     * @param int $reservationId
+     * @return Reservation
+     */
+    public function find(int $reservationId): Reservation;
 
     /**
      * @param string $reservationSlug
      * @return void
      */
-    public function cancelVisitByReservee(string $reservationSlug): void;
+    public function cancelVisitBySlug(string $reservationSlug): void;
 
     /**
      * @param int $reservationId
      * @return void
      */
-    public function cancelVisitByUser(int $reservationId): void;
+    public function cancelVisitById(int $reservationId): void;
 
-    /**
-     * @param int $reservationId
-     * @return void
-     */
-    public function acceptVisit(int $reservationId): void;
 
     /**
      * @param int $reservationId

@@ -8,6 +8,7 @@ use App\Repositories\UserRepositoryInterface;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ReservationController extends Controller
 {
@@ -68,14 +69,66 @@ class ReservationController extends Controller
     }
 
     /**
-     * Cancel a reservation.
+     * Cancel a reservation by slug.
      *
      * @param Request $request
      * @return RedirectResponse
      */
-    public function cancel(Request $request): RedirectResponse
+    public function cancelBySlug(Request $request): RedirectResponse
     {
-        $this->reservationRepository->cancelVisitByReservee($request->slug);
+        $this->reservationRepository->cancelVisitBySlug($request->slug);
+
+        return redirect('/');
+    }
+
+    /**
+     * Cancel a reservation by id.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function cancelById(Request $request): RedirectResponse
+    {
+        $reservation = $this->reservationRepository->find(intval($request->id));
+        $this->authorize('update', $reservation);
+
+        $this->reservationRepository->cancelVisitById(intval($request->id));
+
+        return redirect('/');
+    }
+
+    /**
+     * Begin the visit.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function begin(Request $request): RedirectResponse
+    {
+        $reservation = $this->reservationRepository->find(intval($request->id));
+        $this->authorize('update', $reservation);
+
+        if (! Gate::allows('begin-visit')) {
+            return redirect()->back()->withErrors(['visit' => 'You must finish the current visit to start a new one.']);
+        }
+
+        $this->reservationRepository->beginVisit(intval($request->id));
+
+        return redirect('/');
+    }
+
+    /**
+     * Begin the visit.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function finish(Request $request): RedirectResponse
+    {
+        $reservation = $this->reservationRepository->find(intval($request->id));
+        $this->authorize('update', $reservation);
+
+        $this->reservationRepository->finishVisit(intval($request->id));
 
         return redirect('/');
     }
