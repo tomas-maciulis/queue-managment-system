@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreReservationRequest;
 use App\Repositories\ReservationRepositoryInterface;
 use App\Repositories\UserRepositoryInterface;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -78,7 +79,7 @@ class ReservationController extends Controller
     {
         $this->reservationRepository->cancelVisitBySlug($request->slug);
 
-        return redirect('/');
+        return redirect(route('home'));
     }
 
     /**
@@ -86,6 +87,7 @@ class ReservationController extends Controller
      *
      * @param Request $request
      * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function cancelById(Request $request): RedirectResponse
     {
@@ -94,7 +96,7 @@ class ReservationController extends Controller
 
         $this->reservationRepository->cancelVisitById(intval($request->id));
 
-        return redirect('/');
+        return redirect(route('home'));
     }
 
     /**
@@ -102,6 +104,7 @@ class ReservationController extends Controller
      *
      * @param Request $request
      * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function begin(Request $request): RedirectResponse
     {
@@ -114,7 +117,7 @@ class ReservationController extends Controller
 
         $this->reservationRepository->beginVisit(intval($request->id));
 
-        return redirect('/');
+        return redirect(route('home'));
     }
 
     /**
@@ -122,6 +125,7 @@ class ReservationController extends Controller
      *
      * @param Request $request
      * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function finish(Request $request): RedirectResponse
     {
@@ -130,6 +134,6 @@ class ReservationController extends Controller
 
         $this->reservationRepository->finishVisit(intval($request->id));
 
-        return redirect('/');
+        return redirect(route('home'));
     }
 }
