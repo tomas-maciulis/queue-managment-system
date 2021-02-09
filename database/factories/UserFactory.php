@@ -24,10 +24,11 @@ class UserFactory extends Factory
     {
         return [
             'email' => $this->faker->unique()->safeEmail,
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // hash for word 'password'
             'name' => $this->faker->name,
             'surname' => $this->faker->lastName,
             'room' => $this->faker->randomNumber(3),
+            'role' => 'specialist',
             'is_available' => $this->faker->randomKey([1,0]),
             'remember_token' => Str::random(10),
         ];
