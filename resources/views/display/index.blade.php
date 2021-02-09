@@ -1,7 +1,7 @@
 @extends('layouts.display')
 
 @section('content')
-    <div class="row row-cols-2 display-4 text-white text-center">
+    <div class="container-fluid row row-cols-2 display-4 text-white text-center">
         <div class="w-50">
             <span class="text-success">
                 In progress
@@ -13,7 +13,7 @@
             </span>
         </div>
     </div>
-    <div class="row row-cols-2">
+    <div class="container-fluid row row-cols-2">
         <table class="table table-dark w-50">
             <thead>
             <tr>
@@ -24,7 +24,7 @@
             <tbody id="inProgressReservations">
             <tr>
                 <td class="h3">
-                    Loading data...
+                    Loading...
                 </td>
             </tr>
             </tbody>
@@ -39,7 +39,7 @@
             <tbody id="receivedReservations">
             <tr>
                 <td class="h3">
-                    Loading data...
+                    Loading...
                 </td>
             </tr>
             </tbody>
