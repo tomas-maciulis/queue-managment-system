@@ -15,7 +15,7 @@ Route::get('/', function () {
     return redirect('/reservation');
 });
 
-Route::middleware('auth')->group(function() {
+Route::middleware(['auth', 'specialist'])->group(function() {
     Route::get('/home', [UserController::class, 'index'])
         ->name('user.home');
 
@@ -43,6 +43,12 @@ Route::middleware('guest')->group(function () {
         ->name('reservation.cancel_by_slug');
 });
 
-Route::get('/display', [DisplayController::class, 'show'])
-    ->middleware('auth')
-    ->name('display.show');
+Route::middleware(['auth', 'display'])->group(function () {
+    Route::get('/display', [DisplayController::class, 'show'])
+        ->name('display.show');
+
+    Route::get('/display/home', function() {
+       return view('display.home');
+    })->name('display.home');
+});
+
