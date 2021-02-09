@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
         $user = new User();
         $user->email = 'display@example.net';
         $user->password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; // hash for word 'password'
-        $user->name = '-';
+        $user->name = 'Display';
         $user->surname = '-';
         $user->room = '-';
         $user->role = 'display';
