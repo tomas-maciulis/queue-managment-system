@@ -20,11 +20,6 @@
                                             <option value="{{ $user->id }}">{{ $user->room.', '.$user->full_name }}</option>
                                         @endforeach
                                     </select>
-                                    @error('user_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
                                 </div>
                             </div>
 
