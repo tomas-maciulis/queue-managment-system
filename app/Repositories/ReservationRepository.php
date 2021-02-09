@@ -77,15 +77,15 @@ class ReservationRepository implements ReservationRepositoryInterface
     public function all(int $userId = null, $status = '', $limit = 50): Collection
     {
         //TODO: finalize and manual test
+        if ($userId) {
+            $reservations = Reservation::where('user_id', '=', $userId);
+        } else {
+            $reservations = Reservation::class;
+        }
 
         if ($status) {
             if (gettype($status) === 'array') {
-                $reservations = Reservation::where('status', '=', $status[0]);
-                foreach ($status as $key => $value) {
-                    if ($key > 0) {
-                        $reservations = $reservations->orWhere('status', '=', $value);
-                    }
-                }
+                $reservations = $reservations->whereIn('status', $status);
                 $reservations = $reservations->take($limit);
             } elseif (gettype($status) === 'string') {
                 $reservations = Reservation::where('status', $status)->take($limit);
@@ -94,13 +94,7 @@ class ReservationRepository implements ReservationRepositoryInterface
             $reservations = Reservation::take($limit);
         }
 
-        if ($userId) {
-            $reservations = $reservations->where('user_id', $userId);
-        }
-
         return $reservations->get();
-
-
     }
 
     /**
