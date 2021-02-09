@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'specialist'])->group(function() {
     Route::get('/home', [UserController::class, 'index'])
-        ->name('user.home');
+        ->name('home');
 
     Route::post('/reservation/i/{id}/cancel', [ReservationController::class, 'cancelById'])
         ->name('reservation.cancel_by_id');
@@ -27,6 +27,12 @@ Route::middleware(['auth', 'specialist'])->group(function() {
 
     Route::post('/reservation/i/{id}/finish', [ReservationController::class, 'finish'])
         ->name('reservation.finish');
+
+    Route::post('/status/available', [UserController::class, 'becomeAvailable'])
+        ->name('status.available');
+
+    Route::post('/status/unavailable', [UserController::class, 'becomeUnavailable'])
+        ->name('status.unavailable');
 });
 
 Route::middleware('guest')->group(function () {

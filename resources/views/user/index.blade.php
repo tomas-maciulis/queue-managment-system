@@ -5,7 +5,26 @@
     <div class="row justify-content-center">
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-6">
+                            {{ __('Dashboard') }}
+                        </div>
+                        <div class="col-6 text-right">
+                            @if(Auth::user()->is_available)
+                                <form method="POST" action="{{ route('status.unavailable') }}">
+                                    @csrf
+                                    <button class="btn btn-sm btn-danger mx-1">Become unavailable</button>
+                                </form>
+                            @else
+                                <form method="POST" action="{{ route('status.available') }}">
+                                    @csrf
+                                    <button class="btn btn-sm btn-success mx-1">Become available</button>
+                                </form>
+                            @endif
+                        </div>
+                    </div>
+                </div>
 
                 <div class="card-body">
                     @if($reservations->count())

@@ -48,4 +48,34 @@ class UserRepository implements UserRepositoryInterface
     {
         return User::where('id', $userId)->first()->reservations;
     }
+
+    /**
+     * Make user available for taking reservations.
+     *
+     * @param int $userId
+     * @return void
+     */
+    public function makeAvailable(int $userId): void
+    {
+        $user = User::where('id', $userId)->first();
+        if ($user->is_available === False) {
+            $user->is_available = True;
+            $user->save();
+        }
+    }
+
+    /**
+     * Make user unavailable for taking reservations.
+     *
+     * @param int $userId
+     * @return void
+     */
+    public function makeUnavailable(int $userId): void
+    {
+        $user = User::where('id', $userId)->first();
+        if ($user->is_available === True) {
+            $user->is_available = False;
+            $user->save();
+        }
+    }
 }
