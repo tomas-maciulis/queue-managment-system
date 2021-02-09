@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('surname');
             $table->string('room');
+            $table->enum('role', ['specialist', 'display']);
             $table->boolean('is_available');
             $table->rememberToken();
             $table->timestamps();
