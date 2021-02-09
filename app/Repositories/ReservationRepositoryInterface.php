@@ -18,9 +18,15 @@ interface ReservationRepositoryInterface
     public function create(StoreReservationRequest $request): Reservation;
 
     /**
-     * @return Reservation[]|Collection
+     * Get all reservations matching the criteria.
+     *
+     * @param int $limit how many records should be returned.
+     * @param int|null $userId get reservations for specific user by ID.
+     * @param string|string[] $status return only reservations with specific status.
+     *
+     * @return Collection
      */
-    public function all();
+    public function all(int $userId = null, $status = '', $limit = 50): Collection;
 
     /**
      * @param string $reservationSlug

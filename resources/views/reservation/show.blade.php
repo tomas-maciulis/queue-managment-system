@@ -38,7 +38,7 @@
                                     </button>
                                 </div>
 
-                                @include('reservation.include._cancel_reservation_modal', ['id' => $reservation->code ,'action' => route('reservation.cancelBySlug', $reservation->slug)])
+                                @include('reservation.include._cancel_reservation_modal', ['id' => $reservation->code ,'action' => route('reservation.cancel_by_slug', $reservation->slug)])
                             @endif
                         </div>
                     </div>

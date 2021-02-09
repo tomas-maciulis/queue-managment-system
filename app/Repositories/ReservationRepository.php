@@ -7,7 +7,6 @@ use App\Models\Reservation;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 
 //TODO: refactor status update functions to reduce code repetition
 class ReservationRepository implements ReservationRepositoryInterface
@@ -67,11 +66,41 @@ class ReservationRepository implements ReservationRepositoryInterface
     }
 
     /**
-     * @return Reservation[]|Collection
+     * Get all reservations matching the criteria.
+     *
+     * @param int|null $userId get reservations for specific user by ID.
+     * @param string|string[] $status return only reservations with specific status.
+     * @param int|null $limit how many records should be returned.
+     *
+     * @return Collection
      */
-    public function all()
+    public function all(int $userId = null, $status = '', $limit = 50): Collection
     {
-        return Reservation::all();
+        //TODO: finalize and manual test
+
+        if ($status) {
+            if (gettype($status) === 'array') {
+                $reservations = Reservation::where('status', '=', $status[0]);
+                foreach ($status as $key => $value) {
+                    if ($key > 0) {
+                        $reservations = $reservations->orWhere('status', '=', $value);
+                    }
+                }
+                $reservations = $reservations->take($limit);
+            } elseif (gettype($status) === 'string') {
+                $reservations = Reservation::where('status', $status)->take($limit);
+            }
+        } else {
+            $reservations = Reservation::take($limit);
+        }
+
+        if ($userId) {
+            $reservations = $reservations->where('user_id', $userId);
+        }
+
+        return $reservations->get();
+
+
     }
 
     /**
