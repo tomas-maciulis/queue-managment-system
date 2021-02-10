@@ -29,7 +29,6 @@ class DisplayController extends Controller
      */
     public function show(Request $request)
     {
-        //TODO: make it publicly inaccessible.
         $reservationsReceived =
             $this->reservationRepository
                 ->all(null, 'received', 10)

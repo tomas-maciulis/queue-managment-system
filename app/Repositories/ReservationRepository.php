@@ -8,7 +8,6 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
-//TODO: refactor status update functions to reduce code repetition
 class ReservationRepository implements ReservationRepositoryInterface
 {
     /**
@@ -53,7 +52,11 @@ class ReservationRepository implements ReservationRepositoryInterface
             ->first();
 
         //TODO: make visit time configurable.
-        $startAt = $lastValidReservation ? $lastValidReservation->start_at->addMinutes(15): Carbon::now();
+        $startAt = $lastValidReservation
+            ? $lastValidReservation
+                ->start_at
+                ->addMinutes(config('app.visit_duration'))
+            : Carbon::now();
 
         $reservation = new Reservation(request()->all());
         $reservation->slug = $slug;
@@ -76,7 +79,6 @@ class ReservationRepository implements ReservationRepositoryInterface
      */
     public function all(int $userId = null, $status = '', $limit = 50): Collection
     {
-        //TODO: finalize and manual test
         if ($userId) {
             $reservations = Reservation::where('user_id', '=', $userId);
         } else {
