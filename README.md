@@ -7,16 +7,16 @@ This project is my take on NFQ software engineering internship task. It is not m
 
 ### Users
 There are 3 types of users:
-*Specialist - can receive reservations and change their statuses
-*Guests - can create reservations and cancel them
-*Display - can access the queue display
+-Specialist - can receive reservations and change their statuses
+-Guests - can create reservations and cancel them
+-Display - can access the queue display
 
 By default, the database is populated with 2 specialists:
-*jane.doe@example.net : password
-*john.doe@example.net : password
+-jane.doe@example.net : password
+-john.doe@example.net : password
 
 Also, there is 1 display user:
-*display@example.net : password
+-display@example.net : password
 
 ### Creating reservations
 When accessing the website, guest user will automatically be redirected to reservation creation page. Only active specialists will be available for selection. After creating a reservation, guest user is redirected to reservation display page which is populated with relevant data. Guest can cancel the reservation within this page, too. All guest accessible pages are optimized for smartphones since they will most likely be accessed using this medium.
