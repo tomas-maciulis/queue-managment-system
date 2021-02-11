@@ -44,13 +44,13 @@ Only display users can access the display. Once display user is authenticated, h
 - - Tokenizer PHP Extension
 - - XML PHP Extension
 
-All required PHP extensions on Debian family systems can be installed using the following command:
+All required PHP extensions on Debian family systems can be installed using the following command:  
 ```sudo apt install openssl php-common php-curl php-json php-mbstring php-xml php-zip```
 
-Also, selected SQL PHP extension should be installed as well. MySQL plugin on Debian family systems can be installed using following command:
+Also, selected SQL PHP extension should be installed as well. MySQL plugin on Debian family systems can be installed using following command:  
 ```sudo apt install php-mysql```
 
-In order to run PHPUnit tests, SQLite3 PHP plugin must be installed and activated in the configuration:
+In order to run PHPUnit tests, SQLite3 PHP plugin must be installed and activated in the configuration:  
 ```sudo apt install php-sqlite3```
 
 ### Installation
