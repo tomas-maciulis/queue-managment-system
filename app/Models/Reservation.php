@@ -19,7 +19,7 @@ class Reservation extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected array $fillable = [
+    protected $fillable = [
         'user_id',
         'description',
     ];
@@ -27,7 +27,7 @@ class Reservation extends Model
     /**
      * The attributes that should be cast to native types.
      */
-    protected array $casts = [
+    protected $casts = [
         'start_at' => 'datetime',
     ];
 
