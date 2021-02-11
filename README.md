@@ -54,14 +54,13 @@ In order to run PHPUnit tests, SQLite3 PHP plugin must be installed and activate
 ```sudo apt install php-sqlite3```
 
 ### Installation
-Navigate your command line to project root directory and install PHP and JS dependencies:
-- `composer install`
-- `npm install`
+Navigate your command line to project root directory and install PHP and JS dependencies:  
+`composer install && npm install`
 
-Create an empty SQL database (MySQL is recommended)
+Create an empty SQL database.
 
 Duplicate `.env.example` and rename it to `.env`
-Open it and edit the DB section to reflect your database server configuration.
+Open it and edit the DB section to reflect your database server configuration, other settings are optional.
 
 Populate the database with tables by running `php artisan migrate`.
 Optionally, `php artisan db:seed` command can be executed to populate the database with default users.
