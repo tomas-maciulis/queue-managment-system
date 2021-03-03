@@ -26,21 +26,6 @@ class ReservationRepository implements ReservationRepositoryInterface
             }
         }
 
-        $isCodeAvailable = False;
-        while (!$isCodeAvailable) {
-            $code = substr(md5(time()), 0, 5);
-
-            $reservationsWithDuplicateCode = Reservation::where('code', $code)->get();
-            if ($reservationsWithDuplicateCode->count()) {
-                $statuses = $reservationsWithDuplicateCode->pluck('status')->toArray();
-                if (!array_intersect($statuses, ['in progress', 'received'])) {
-                    $isCodeAvailable = True;
-                }
-            } else {
-                $isCodeAvailable = True;
-            }
-        }
-
         $lastValidReservation = User::where('id', $request->user_id)
             ->first()
             ->reservations
@@ -51,7 +36,6 @@ class ReservationRepository implements ReservationRepositoryInterface
             ->sortByDesc('start_at')
             ->first();
 
-        //TODO: make visit time configurable.
         $startAt = $lastValidReservation
             ? $lastValidReservation
                 ->start_at
@@ -60,7 +44,6 @@ class ReservationRepository implements ReservationRepositoryInterface
 
         $reservation = new Reservation(request()->all());
         $reservation->slug = $slug;
-        $reservation->code = $code;
         $reservation->status = 'received';
         $reservation->start_at = $startAt;
         $reservation->save();

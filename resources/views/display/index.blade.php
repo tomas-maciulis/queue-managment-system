@@ -58,8 +58,8 @@
                         if(response.reservationsReceived.length>0){
                             var reservations ='';
                             for(var i=0;i<response.reservationsReceived.length;i++){
-                                reservations=reservations+'<tr class="display-3"><li>'+response.reservationsReceived[i].code+'-'+response.reservationsReceived[i].user.room+'-'+response.reservationsReceived[i].status+'</li>';
-                                reservations += '<th scope="row">' + response.reservationsReceived[i].code + '</th>'+
+                                reservations=reservations+'<tr class="display-3"><li>'+response.reservationsReceived[i].id+'-'+response.reservationsReceived[i].user.room+'-'+response.reservationsReceived[i].status+'</li>';
+                                reservations += '<th scope="row">' + response.reservationsReceived[i].id + '</th>'+
                                     '<td>' + response.reservationsReceived[i].room + '</td></tr>';
                             }
                             $('#receivedReservations').append(reservations);
@@ -68,8 +68,8 @@
                         if(response.reservationsInProgress.length>0){
                             var reservations ='';
                             for(var i=0;i<response.reservationsInProgress.length;i++){
-                                reservations=reservations+'<tr class="h1"><li>'+response.reservationsInProgress[i].code+'-'+response.reservationsInProgress[i].user.room+'-'+response.reservationsInProgress[i].status+'</li>';
-                                reservations += '<th scope="row">' + response.reservationsInProgress[i].code + '</th>'+
+                                reservations=reservations+'<tr class="h1"><li>'+response.reservationsInProgress[i].id+'-'+response.reservationsInProgress[i].user.room+'-'+response.reservationsInProgress[i].status+'</li>';
+                                reservations += '<th scope="row">' + response.reservationsInProgress[i].id + '</th>'+
                                     '<td>' + response.reservationsInProgress[i].room + '</td></tr>';
                             }
                             $('#inProgressReservations').append(reservations);

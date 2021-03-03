@@ -42,7 +42,7 @@
                         @php($isReservationFirstInList = True)
                         @foreach($reservations as $reservation)
                             <tr>
-                                <th scope="row">{{ $reservation->code }}</th>
+                                <th scope="row">{{ $reservation->id }}</th>
                                 <td>{{ $reservation->start_at }}</td>
                                 <td>{{ $reservation->status }}</td>
                                 <td>
@@ -61,10 +61,10 @@
                                                 </form>
                                                 @php($isReservationFirstInList = False)
                                             @endif
-                                            <button type="button" class="btn btn-danger btn-sm mx-1" data-toggle="modal" data-target="#confirmCancellationModal-{{ $reservation->code }}">
+                                            <button type="button" class="btn btn-danger btn-sm mx-1" data-toggle="modal" data-target="#confirmCancellationModal-{{ $reservation->id }}">
                                                 Cancel
                                             </button>
-                                            @include('reservation.include._cancel_reservation_modal', ['id' => $reservation->code, 'action' => route('reservation.cancel_by_id', $reservation->id)])
+                                            @include('reservation.include._cancel_reservation_modal', ['id' => $reservation->id, 'action' => route('reservation.cancel_by_id', $reservation->id)])
                                         @endif
                                     </div>
                                 </td>

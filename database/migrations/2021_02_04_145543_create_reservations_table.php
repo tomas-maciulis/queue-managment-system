@@ -17,7 +17,6 @@ class CreateReservationsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('slug', 24)->unique();
-            $table->string('code', 5);
             $table->enum('status', ['received', 'in progress', 'cancelled', 'finished']);
             $table->timestamp('start_at');
             $table->timestamps();

@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <div class="d-flex flex-column justify-content-center bd-highlight mb-3">
                             @if ($reservation->status === 'received')
-                                <h1 class="mx-auto mb-0 display-4">{{ $reservation->code }}</h1>
+                                <h1 class="mx-auto mb-0 display-4">{{ $reservation->id }}</h1>
                                 <h5 class="mx-auto mt-0">code</h5>
                                 <span class="border-bottom mb-1"></span>
                             @else
@@ -33,12 +33,12 @@
 
                             @if ($reservation->status === 'received')
                                 <div class="text-right">
-                                    <button type="button" class="btn btn-danger btn-md float-right mt-4 col-xl-3 col-lg-4 col-md-5" data-toggle="modal" data-target="#confirmCancellationModal-{{ $reservation->code }}">
+                                    <button type="button" class="btn btn-danger btn-md float-right mt-4 col-xl-3 col-lg-4 col-md-5" data-toggle="modal" data-target="#confirmCancellationModal-{{ $reservation->id }}">
                                         Cancel reservation
                                     </button>
                                 </div>
 
-                                @include('reservation.include._cancel_reservation_modal', ['id' => $reservation->code ,'action' => route('reservation.cancel_by_slug', $reservation->slug)])
+                                @include('reservation.include._cancel_reservation_modal', ['id' => $reservation->id ,'action' => route('reservation.cancel_by_slug', $reservation->slug)])
                             @endif
                         </div>
                     </div>
