@@ -26,15 +26,23 @@ class ReservationRepository implements ReservationRepositoryInterface
             }
         }
 
-        $lastValidReservation = User::where('id', $request->user_id)
-            ->first()
-            ->reservations
-            ->filter(function ($item) {
-                return $item->status !== 'cancelled'
-                    && $item->status !== 'finished';
-            })
-            ->sortByDesc('start_at')
-            ->first();
+        $lastValidReservation = Reservation::where('user_id', '=', $request->user_id)
+            ->where('status', '!=', 'cancelled')
+            ->where('status', '!=', 'finished')
+            ->orderByDesc('start_at')
+            ->value('start_at');
+
+        if ($lastValidReservation <= Carbon::now()) {
+            $queueLength = Reservation::where('user_id', '=', $request->user_id)
+                ->where('status', '!=', 'cancelled')
+                ->where('status', '!=', 'finished')
+                ->count();
+
+            $lastValidReservation = Carbon::now()
+                ->addMinutes(
+                    config('app.visit_duration') * ($queueLength - 1)
+                );
+        }
 
         $startAt = $lastValidReservation
             ? $lastValidReservation
