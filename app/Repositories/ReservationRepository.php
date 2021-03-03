@@ -20,7 +20,7 @@ class ReservationRepository implements ReservationRepositoryInterface
     {
         $isSlugUnique = False;
         while (!$isSlugUnique) {
-            $slug = substr(md5(time()), 0, 24);
+            $slug = substr(md5(microtime().mt_rand()), 0, 24);
             if (!Reservation::where('slug', $slug)->count()) {
                 $isSlugUnique = True;
             }
