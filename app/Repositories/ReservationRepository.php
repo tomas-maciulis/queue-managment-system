@@ -46,7 +46,6 @@ class ReservationRepository implements ReservationRepositoryInterface
 
         $startAt = $lastValidReservation
             ? $lastValidReservation
-                ->start_at
                 ->addMinutes(config('app.visit_duration'))
             : Carbon::now();
 
