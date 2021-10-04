@@ -1,6 +1,6 @@
 ## About
 
-This project is my take on NFQ software engineering internship task. It is not meant to be developed further than it currently is.
+This project is my take on NFQ software engineering internship task. It is not meant to be developed further than it currently is. It's a queue managing app meant to be used in banks, fast food restaurants, hospitals, etc.
 
 
 ## Usage information
